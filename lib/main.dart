@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Borneo Travel',
+      title: 'Borneo travels',
       debugShowCheckedModeBanner: false,
       home: AppGua(),
       theme: ThemeData(
