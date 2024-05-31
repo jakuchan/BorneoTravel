@@ -53,43 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.only(top: 50, left: 80, right: 80),
               child: Column(
                 children: [
-                  Image.network(
-                    'images/assets/borneotravel.png',
-                    width: 350,
-                    height: 350,
-                  ),
-                  Center(
-                    child: Center(
-                      child: Column(children: [
-                        ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStatePropertyAll<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(255, 0, 97, 187))),
-                          onPressed: () {},
-                          child: Container(
-                            width: 400,
-                            height: 50,
-                            child: Row(
-                              children: [
-                                Container(
-                                    child: Padding(
-                                  padding: EdgeInsets.only(left: 0, right: 20),
-                                  child: Image.network(
-                                    'images/assets/borneotravel2.png',
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                )),
-                                Container(
-                                  child: Text(
-                                    'Lanjutkan dengan Email',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )
+                 
                               ],
                             ),
                           ),
@@ -142,21 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 50,
                             child: Row(
                               children: [
-                                Container(
-                                    child: Padding(
-                                  padding: EdgeInsets.only(left: 0, right: 20),
-                                  child: Image.network(
-                                    'images/assets/borneotravel2.png',
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                )),
-                                Container(
-                                  child: Text(
-                                    'Lanjutkan dengan Email',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )
+                                
                               ],
                             ),
                         ),
@@ -181,48 +131,15 @@ class _LoginPageState extends State<LoginPage> {
                             child: Row(
                               
                               children: [
-                                Container(
-                                    child: Padding(
-                                  padding: EdgeInsets.only(left: 0, right: 20),
-                                  child: Image.network(
-                                    'images/assets/borneotravel2.png',
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                )),
-                                Container(
-                                  child: Text(
-                                    'Lanjutkan dengan Email',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )
+                                
                               ],
                             ),
                           ),
                         ),
                       ]),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ]));
-  }
+  ]),
+                  );
+  
 }
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: Center(
-        child: Text('Welcome!'),
-      ),
-    );
-  }
 }

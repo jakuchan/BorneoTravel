@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_borneoapp/tambah.dart';
 import 'dbhelper.dart';
 import 'login_page.dart';
@@ -34,15 +36,35 @@ enum _MenuValues {
 }
 
 // ignore: must_be_immutable
-class AppGua extends StatelessWidget {
+class AppGua extends StatefulWidget {
   AppGua({super.key});
 
+  @override
+  State<AppGua> createState() => _AppGuaState();
+}
+
+class _AppGuaState extends State<AppGua> {
   Future<List<Map<String, dynamic>>> _retrieveData() async {
     DBHelper dbHelper = DBHelper();
     return await dbHelper.queryAllUsers();
   }
 
+  int activeIndex = 0;
+
+  final urlImages = [
+    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
+    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
+    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
+    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
+    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
+
+
+ 
+    
+  ];
+
   String login1 = 'Login';
+
   String add1 = 'Tambah Wisata';
 
   @override
@@ -73,15 +95,12 @@ class AppGua extends StatelessWidget {
                         ),
                       ],
                   onSelected: (value) {
-                    switch (value) {
-                      case _MenuValues.login:
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (c) => LoginPage()));
-                        break;
-                      case _MenuValues.tambah:
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => MyFormPage()));
-                      // TODO: Handle this case.
+                    if (value case _MenuValues.login) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (c) => LoginPage()));
+                    } else if (value case _MenuValues.tambah) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => MyFormPage()));
                     }
                   }),
               Container(
@@ -113,64 +132,34 @@ class AppGua extends StatelessWidget {
                           padding: EdgeInsets.only(
                               top: 20, left: 30, right: 10, bottom: 15),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Eksplor',
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
-                              const Text(
-                                'Tempat wisata, hotel, dan lainnya',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(
-                                  height:
-                                      20), // Memberikan ruang antara teks dan kotak pencarian
-                              Container(
-                                height: 40,
-                                padding: const EdgeInsets.only(right: 20),
-                                child: TextFormField(
-                                  style: TextStyle(fontSize: 15),
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
-                                    hintText: 'Cari',
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: Colors.black,
-                                    ),
-                                    border: OutlineInputBorder(),
-                                    filled: true,
-                                    fillColor: Color(0xFFD9D9D9),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      Color.fromARGB(255, 0, 97, 187)),
-                                  shape: MaterialStatePropertyAll<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10))),
-                                ),
-
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => HasilPage()),
-                                  );
+                              
+                              CarouselSlider.builder(
+                                itemCount: urlImages.length,
+                                itemBuilder: (context, index, realIndex) {
+                                  final urlImage = urlImages[index];
+                                  return Container(
+                                    width: 500,
+                                    height: 100,
+                                    
+                                      child: buildImage(urlImage, index,));
                                 },
-                                // style: ElevatedButton.styleFrom(
-                                //   foregroundColor: Colors.white,
-                                //   backgroundColor: const Color.fromARGB(255, 0, 97, 187), // Warna teks
-                                // ),
-                                child: const Text('Cari',
-                                    style: TextStyle(color: Colors.white)),
+                                options: CarouselOptions(
+                                    height: 200,
+                                    autoPlay: true,
+                                    autoPlayInterval: Duration(seconds: 12),
+                                    enableInfiniteScroll: false,
+                                    autoPlayAnimationDuration:
+                                        Duration(seconds: 2),
+                                    enlargeCenterPage: true,
+                                    onPageChanged: (index, reason) =>
+                                        setState(() => activeIndex = index)),
                               ),
+                              SizedBox(
+                                height: 12,
+                              ),
+                              buildIndicator()
                             ],
                           ),
                         ),
@@ -214,7 +203,6 @@ class AppGua extends StatelessWidget {
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Container(
-                                  padding: EdgeInsets.only(left: 10, right: 10),
                                   width: MediaQuery.of(context).size.width,
                                   height: 170,
                                   child:
@@ -240,8 +228,8 @@ class AppGua extends StatelessWidget {
                                           itemBuilder: (context, index) {
                                             var user = snapshot.data![index];
                                             return Container(
-                                                        padding: EdgeInsets.only(left: 10, right: 10),
-
+                                                margin:
+                                                    EdgeInsets.only(right: 5),
                                                 child: Column(
                                                   children: [
                                                     GestureDetector(
@@ -256,21 +244,22 @@ class AppGua extends StatelessWidget {
                                                         );
                                                       },
                                                       child: Container(
-                                                        margin: EdgeInsets.only(left: 10, right: 10),
                                                         width: 200,
                                                         height: 130,
-                                                        decoration: BoxDecoration(
-                                                            image: DecorationImage(
-                                                                image: NetworkImage(
-                                                                    '${user['image']}'),
-                                                                fit: BoxFit
-                                                                    .cover)),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                image:
+                                                                    DecorationImage(
+                                                          image: NetworkImage(
+                                                              '${user['image']}'),
+                                                          fit: BoxFit.cover,
+                                                        )),
                                                       ),
                                                     ),
                                                     Container(
                                                       child: Text(
                                                           '${user['location']}'),
-                                                    )
+                                                    ),
                                                   ],
                                                 ));
                                           },
@@ -422,4 +411,17 @@ class AppGua extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildIndicator() => AnimatedSmoothIndicator(
+      effect: ExpandingDotsEffect(
+         dotWidth: 8, dotHeight: 8, activeDotColor: Color.fromARGB(255, 0, 97, 187)),
+      activeIndex: activeIndex,
+      count: urlImages.length);
+
+  Widget buildImage(String urlImage, int index) => Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      child: Image.network(
+        urlImage,
+        fit: BoxFit.cover,
+      ));
 }
