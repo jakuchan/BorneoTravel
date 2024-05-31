@@ -19,7 +19,8 @@ class _MyFormPageState extends State<MyFormPage> {
   final _imageController = TextEditingController();
   final _nameController = TextEditingController();
   final _typeController = TextEditingController();
-  final _locationController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _provinceController = TextEditingController();
   final _timeController = TextEditingController();
   final _priceController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -44,7 +45,8 @@ class _MyFormPageState extends State<MyFormPage> {
       _imageController.text = existingUser['image'];
       _nameController.text = existingUser['name'];
       _typeController.text = existingUser['type'];
-      _locationController.text = existingUser['location'];
+      _cityController.text = existingUser['city'];
+      _provinceController.text = existingUser['province'];
       _timeController.text = existingUser['time'];
       _priceController.text = existingUser['price'];
       _descriptionController.text = existingUser['description'];
@@ -52,7 +54,8 @@ class _MyFormPageState extends State<MyFormPage> {
       _imageController.clear();
       _nameController.clear();
       _typeController.clear();
-      _locationController.clear();
+      _cityController.clear();
+      _provinceController.clear();
       _timeController.clear();
       _priceController.clear();
       _descriptionController.clear();
@@ -92,7 +95,7 @@ class _MyFormPageState extends State<MyFormPage> {
                       ),
                        TextFormField(
                         controller: _typeController,
-                        decoration: const InputDecoration(labelText: 'Kategori'),
+                        decoration: const InputDecoration(labelText: 'Wisata, Hotel'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a type';
@@ -100,17 +103,31 @@ class _MyFormPageState extends State<MyFormPage> {
                           return null;
                         },
                       ),
-                      TextFormField(
-                        controller: _locationController,
-                        decoration:
-                            const InputDecoration(labelText: 'Lokasi'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a class';
-                          }
-                          return null;
-                        },
-                      ),
+                    
+                          TextFormField(
+                            controller: _cityController,
+                            decoration:
+                                const InputDecoration(labelText: 'Kota'),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a class';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            controller: _provinceController,
+                            decoration:
+                                const InputDecoration(labelText: 'Provinsi'),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a valid province';
+                              }
+                              return null;
+                            },
+                          ),
+                          
+                     
                       TextFormField(
                         controller: _timeController,
                         decoration:
@@ -169,7 +186,8 @@ class _MyFormPageState extends State<MyFormPage> {
       'image': _imageController.text,
       'name': _nameController.text,
       'type': _typeController.text,
-      'location': _locationController.text,
+      'city': _cityController.text,
+      'province': _provinceController.text,
       'time': _timeController.text,
       'price': _priceController.text,
       'description': _descriptionController.text,
@@ -183,7 +201,8 @@ class _MyFormPageState extends State<MyFormPage> {
       'image': _imageController.text,
       'name': _nameController.text,
       'type': _typeController.text,
-      'location': _locationController.text,
+      'city': _cityController.text,
+      'province': _provinceController.text,
       'time': _timeController.text,
       'price': _priceController.text,
       'description': _descriptionController.text,
@@ -254,7 +273,8 @@ class _MyFormPageState extends State<MyFormPage> {
                         ),
                         Text(_users[index]['name'],style: TextStyle(color: Colors.white),),
                         Text(_users[index]['type'],style: TextStyle(color: Colors.white),),
-                        Text(_users[index]['location'],style: TextStyle(color: Colors.white)),
+                        Text(_users[index]['city'],style: TextStyle(color: Colors.white)),
+                        Text(_users[index]['province'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['time'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['price'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['description'],style: TextStyle(color: Colors.white)),

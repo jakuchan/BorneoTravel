@@ -130,8 +130,23 @@ class _HasilPageState extends State<HasilPage> {
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text('${user['name']}'),
-                                                    Text('Test2')
+                                                    Text('${user['name']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),),
+                                                    SizedBox(height: 10,),
+                                                    Container(
+                                                      width: 60,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(color: Colors.black),
+                                                        borderRadius: BorderRadius.circular(5),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text('${user['type']}')
+                                                        ]
+                                                      ),
+                                                    )
                                                   ],
                                                 ),
                                               ),

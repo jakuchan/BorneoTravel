@@ -123,46 +123,59 @@ class _AppGuaState extends State<AppGua> {
                             return Align(
                               alignment: Alignment
                                   .topCenter, // Ubah posisi dialog di sini
-                              child: Material(
-                                color: Colors.transparent,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      height: 40,
-                                      margin: EdgeInsets.only(
-                                          top:
-                                              50.0), // Ubah margin untuk memposisikan dialog
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border(bottom: BorderSide(
-                                          width: 2,
-                                          color: Colors.grey
-                                        ))
-                                      ),
-                                      child: Row(
-                                        
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Notifikasi',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17),
+                              child: Container(
+                                height: 220,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  
+                                  child: Container(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 10),
+                                          width: MediaQuery.of(context).size.width *
+                                              0.8,
+                                          height: 40,
+                                          margin: EdgeInsets.only(
+                                              top:
+                                                  50.0), // Ubah margin untuk memposisikan dialog
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border(bottom: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey
+                                            ))
                                           ),
-                                        ],
-                                      ),
+                                          child: Row(
+                                            
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Notifikasi',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 17),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.8,
+                                          height: 130,
+                                          color: Colors.white,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text('infoNotifikasi')
+                                            ],
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      height: 130,
-                                      color: Colors.white,
-                                    )
-                                  ],
+                                  ),
                                 ),
                               ),
                             );
@@ -334,14 +347,14 @@ class _AppGuaState extends State<AppGua> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            '${user['location']}',
+                                                            '${user['city']}',
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold),
                                                           ),
                                                           Text(
-                                                              '${user['name']}')
+                                                              '${user['province']}')
                                                         ],
                                                       ),
                                                     ),
