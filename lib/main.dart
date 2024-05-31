@@ -57,10 +57,6 @@ class _AppGuaState extends State<AppGua> {
     'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
     'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
     'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
-
-
- 
-    
   ];
 
   String login1 = 'Login';
@@ -109,8 +105,37 @@ class _AppGuaState extends State<AppGua> {
                 child: Image.asset('images/assets/borneotravel.png'),
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.notifications, color: Colors.white)),
+                icon: Icon(Icons.notifications, color: Colors.white,),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 8.0),
+                            Text('Notifikasi'),
+                          ],
+                        ),
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Ini adalah pesan notifikasi.'),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text('Tutup'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              )
             ],
           ),
         ),
@@ -134,16 +159,17 @@ class _AppGuaState extends State<AppGua> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              
                               CarouselSlider.builder(
                                 itemCount: urlImages.length,
                                 itemBuilder: (context, index, realIndex) {
                                   final urlImage = urlImages[index];
                                   return Container(
-                                    width: 500,
-                                    height: 100,
-                                    
-                                      child: buildImage(urlImage, index,));
+                                      width: 500,
+                                      height: 100,
+                                      child: buildImage(
+                                        urlImage,
+                                        index,
+                                      ));
                                 },
                                 options: CarouselOptions(
                                     height: 200,
@@ -172,7 +198,7 @@ class _AppGuaState extends State<AppGua> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -189,14 +215,10 @@ class _AppGuaState extends State<AppGua> {
                                 padding: EdgeInsets.only(bottom: 20),
                                 child: Row(
                                   children: [
-                                    Text('Populer di ',
-                                        style: TextStyle(fontSize: 15)),
-                                    Text(
-                                      'Kalimantan Selatan',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    )
+                                    Text('Destinasi Populer ',
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold)),
                                   ],
                                 ),
                               ),
@@ -204,7 +226,7 @@ class _AppGuaState extends State<AppGua> {
                                 scrollDirection: Axis.horizontal,
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  height: 170,
+                                  height: 190,
                                   child:
                                       FutureBuilder<List<Map<String, dynamic>>>(
                                     future: _retrieveData(),
@@ -229,7 +251,7 @@ class _AppGuaState extends State<AppGua> {
                                             var user = snapshot.data![index];
                                             return Container(
                                                 margin:
-                                                    EdgeInsets.only(right: 5),
+                                                    EdgeInsets.only(right: 40),
                                                 child: Column(
                                                   children: [
                                                     GestureDetector(
@@ -248,17 +270,43 @@ class _AppGuaState extends State<AppGua> {
                                                         height: 130,
                                                         decoration:
                                                             BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
                                                                 image:
                                                                     DecorationImage(
-                                                          image: NetworkImage(
-                                                              '${user['image']}'),
-                                                          fit: BoxFit.cover,
-                                                        )),
+                                                                  image: NetworkImage(
+                                                                      '${user['image']}'),
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                )),
                                                       ),
                                                     ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
                                                     Container(
-                                                      child: Text(
-                                                          '${user['location']}'),
+                                                      width: 200,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            '${user['location']}',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Text(
+                                                              '${user['name']}')
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ));
@@ -280,7 +328,7 @@ class _AppGuaState extends State<AppGua> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -300,7 +348,9 @@ class _AppGuaState extends State<AppGua> {
                                 child: Row(
                                   children: [
                                     Text('Promo Hari Ini',
-                                        style: TextStyle(fontSize: 15)),
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold)),
                                   ],
                                 ),
                               ),
@@ -312,17 +362,31 @@ class _AppGuaState extends State<AppGua> {
                                     children: [
                                       Column(children: <Widget>[
                                         Container(
-                                          width: 200,
-                                          height: 100,
-                                          child: Image.network(
-                                            'https://th.bing.com/th/id/OIP.qqmrQEpbjlA1dxmZcpX6twHaFN?rs=1&pid=ImgDetMain',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
+                                            width: 200,
+                                            height: 130,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    'https://th.bing.com/th/id/OIP.qqmrQEpbjlA1dxmZcpX6twHaFN?rs=1&pid=ImgDetMain'),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            )),
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Text('Promo Hari Raya')
+                                        Container(
+                                            width: 200,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('Promo Hari Raya'),
+                                              ],
+                                            ))
                                       ]),
                                       SizedBox(
                                         width: 20,
@@ -344,7 +408,7 @@ class _AppGuaState extends State<AppGua> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -364,33 +428,25 @@ class _AppGuaState extends State<AppGua> {
                                 child: Row(
                                   children: [
                                     Text('Lanjutkan Pencarian',
-                                        style: TextStyle(fontSize: 15)),
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold)),
                                   ],
                                 ),
                               ),
                               Container(
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
-                                  padding: EdgeInsets.only(right: 20),
                                   child: Row(
                                     children: [
-                                      Column(children: <Widget>[
-                                        Container(
-                                          width: 200,
-                                          height: 100,
-                                          child: Image.network(
-                                            'https://th.bing.com/th/id/OIP.qqmrQEpbjlA1dxmZcpX6twHaFN?rs=1&pid=ImgDetMain',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text('Banjarmasin, Kalimantan Selatan')
-                                      ]),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
+                                      Container(
+                                        width: 200,
+                                        height: 130,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -414,7 +470,9 @@ class _AppGuaState extends State<AppGua> {
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
       effect: ExpandingDotsEffect(
-         dotWidth: 8, dotHeight: 8, activeDotColor: Color.fromARGB(255, 0, 97, 187)),
+          dotWidth: 8,
+          dotHeight: 8,
+          activeDotColor: Color.fromARGB(255, 0, 97, 187)),
       activeIndex: activeIndex,
       count: urlImages.length);
 
