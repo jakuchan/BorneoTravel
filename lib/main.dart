@@ -105,32 +105,69 @@ class _AppGuaState extends State<AppGua> {
                 child: Image.asset('images/assets/borneotravel.png'),
               ),
               IconButton(
-                icon: Icon(Icons.notifications, color: Colors.white,),
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
                 onPressed: () {
-                  showDialog(
+                  showGeneralDialog(
                     context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 8.0),
-                            Text('Notifikasi'),
-                          ],
+                    barrierDismissible: true,
+                    barrierLabel: MaterialLocalizations.of(context)
+                        .modalBarrierDismissLabel,
+                    pageBuilder: (BuildContext buildContext,
+                        Animation animation, Animation secondaryAnimation) {
+                      return SafeArea(
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return Align(
+                              alignment: Alignment
+                                  .topCenter, // Ubah posisi dialog di sini
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      height: 40,
+                                      margin: EdgeInsets.only(
+                                          top:
+                                              50.0), // Ubah margin untuk memposisikan dialog
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border(bottom: BorderSide(
+                                          width: 2,
+                                          color: Colors.grey
+                                        ))
+                                      ),
+                                      child: Row(
+                                        
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Notifikasi',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      height: 130,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                        content: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Ini adalah pesan notifikasi.'),
-                        ),
-                        actions: [
-                          TextButton(
-                            child: Text('Tutup'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
                       );
                     },
                   );
