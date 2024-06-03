@@ -16,13 +16,13 @@ class DBHelper {
   }
 
   Future<Database> _initDB() async {
-    String path = join(await getDatabasesPath(), 'crud5.db');
+    String path = join(await getDatabasesPath(), 'crud6.db');
     return await openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT, name TEXT, type TEXT, city TEXT, province TEXT, time TEXT, price TEXT, description TEXT)",
+          "CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT, name TEXT, type TEXT, city TEXT, province TEXT, day TEXT, time TEXT, price TEXT, description TEXT)",
         );
         
       },

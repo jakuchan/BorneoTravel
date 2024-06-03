@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_borneoapp/tambah.dart';
 import 'dbhelper.dart';
 import 'login_page.dart';
 import 'wisata.dart';
+import 'detail_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +28,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins-Regular',
       ),
+      routes: {
+        '/hasil': (context) => HasilPage(),
+        '/detail': (context) => DetailPage(product: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
+      },
     );
   }
 }
@@ -257,18 +263,22 @@ class _AppGuaState extends State<AppGua> {
                   child: Column(children: [
                     Container(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 20, left: 30, bottom: 15),
+                        padding: EdgeInsets.only(top: 10, left: 30, bottom: 15),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                padding: EdgeInsets.only(bottom: 20),
+                                padding: EdgeInsets.only(bottom: 10),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('Destinasi Populer ',
+                                    Text('Wisata Terbaru ',
                                         style: TextStyle(
                                             fontSize: 17,
                                             fontWeight: FontWeight.bold)),
+                                            IconButton(onPressed:() {
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => HasilPage()));
+                                            },  icon: Icon(Icons.arrow_right_alt))
                                   ],
                                 ),
                               ),
@@ -276,7 +286,7 @@ class _AppGuaState extends State<AppGua> {
                                 scrollDirection: Axis.horizontal,
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  height: 190,
+                                  height: 210,
                                   child:
                                       FutureBuilder<List<Map<String, dynamic>>>(
                                     future: _retrieveData(),
@@ -346,13 +356,10 @@ class _AppGuaState extends State<AppGua> {
                                                             MainAxisAlignment
                                                                 .start,
                                                         children: [
+                                                          AutoSizeText(
+                                                            '${user['name']}', style: TextStyle(fontWeight: FontWeight.bold,), maxLines: 1, minFontSize: 15, overflow: TextOverflow.ellipsis,),
                                                           Text(
-                                                            '${user['city']}',
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
+                                                            '${user['city']}' +','),
                                                           Text(
                                                               '${user['province']}')
                                                         ],

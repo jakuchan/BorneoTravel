@@ -1,16 +1,13 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
-class LoginApp extends StatelessWidget {
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login App',
+      title: 'Flutter Login',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'Poppins-Regular',
       ),
       home: LoginPage(),
     );
@@ -23,123 +20,73 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      // Implement your login logic here
+      String email = _emailController.text;
+      String password = _passwordController.text;
+      print('Email: $email, Password: $password');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(children: [
-      Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(
-                  'https://asset.kompas.com/crops/C7HTZr0RDRNxKxVmAN6-mNLo2Bg=/0x0:1000x667/750x500/data/photo/2022/06/26/62b758316726d.jpg',
-                ),
-                fit: BoxFit.cover)),
+      appBar: AppBar(
+        title: Text('Login'),
       ),
-      BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-        child: Container(
-          color: Colors.black.withOpacity(0),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'Email'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(labelText: 'Password'),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: _login,
+                child: Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
-      Column(
-        children: [
-          AppBar(
-            iconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 50, left: 80, right: 80),
-              child: Column(
-                children: [
-                 
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                       
-                        Container(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 150,
-                                  height: 2,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Container(
-                                    child: Text(
-                                  'Atau',
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Container(
-                                  width: 150,
-                                  height: 2,
-                                  color: Colors.white,
-                                )
-                              ]),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStatePropertyAll<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(255, 0, 97, 187))),
-                          onPressed: () {},
-                        child: Container(
-                         width: 400,
-                            height: 50,
-                            child: Row(
-                              children: [
-                                
-                              ],
-                            ),
-                        ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                              shape: MaterialStatePropertyAll<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(255, 0, 97, 187))),
-                          onPressed: () {},
+    );
+  }
 
-                        child: Container(
-                         width: 400,
-                            height: 50,
-                            
-                            child: Row(
-                              
-                              children: [
-                                
-                              ],
-                            ),
-                          ),
-                        ),
-                      ]),
-  ]),
-                  );
-  
-}
-
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 }

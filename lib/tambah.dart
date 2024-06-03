@@ -21,6 +21,7 @@ class _MyFormPageState extends State<MyFormPage> {
   final _typeController = TextEditingController();
   final _cityController = TextEditingController();
   final _provinceController = TextEditingController();
+  final _dayController = TextEditingController();
   final _timeController = TextEditingController();
   final _priceController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -47,6 +48,7 @@ class _MyFormPageState extends State<MyFormPage> {
       _typeController.text = existingUser['type'];
       _cityController.text = existingUser['city'];
       _provinceController.text = existingUser['province'];
+      _dayController.text = existingUser['day'];
       _timeController.text = existingUser['time'];
       _priceController.text = existingUser['price'];
       _descriptionController.text = existingUser['description'];
@@ -56,6 +58,7 @@ class _MyFormPageState extends State<MyFormPage> {
       _typeController.clear();
       _cityController.clear();
       _provinceController.clear();
+      _dayController.clear();
       _timeController.clear();
       _priceController.clear();
       _descriptionController.clear();
@@ -127,7 +130,17 @@ class _MyFormPageState extends State<MyFormPage> {
                             },
                           ),
                           
-                     
+                      TextFormField(
+                        controller: _dayController,
+                        decoration:
+                            const InputDecoration(labelText: 'Hari Buka/Tutup'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a valid day';
+                          }
+                          return null;
+                        },
+                      ),
                       TextFormField(
                         controller: _timeController,
                         decoration:
@@ -188,6 +201,7 @@ class _MyFormPageState extends State<MyFormPage> {
       'type': _typeController.text,
       'city': _cityController.text,
       'province': _provinceController.text,
+      'day' : _dayController.text,
       'time': _timeController.text,
       'price': _priceController.text,
       'description': _descriptionController.text,
@@ -203,6 +217,7 @@ class _MyFormPageState extends State<MyFormPage> {
       'type': _typeController.text,
       'city': _cityController.text,
       'province': _provinceController.text,
+      'day' : _dayController.text,
       'time': _timeController.text,
       'price': _priceController.text,
       'description': _descriptionController.text,
@@ -275,6 +290,7 @@ class _MyFormPageState extends State<MyFormPage> {
                         Text(_users[index]['type'],style: TextStyle(color: Colors.white),),
                         Text(_users[index]['city'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['province'],style: TextStyle(color: Colors.white)),
+                        Text(_users[index]['day'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['time'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['price'],style: TextStyle(color: Colors.white)),
                         Text(_users[index]['description'],style: TextStyle(color: Colors.white)),
