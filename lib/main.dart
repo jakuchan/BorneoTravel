@@ -316,14 +316,13 @@ class _AppGuaState extends State<AppGua> {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    HasilPage(),
-                                                          ),
-                                                        );
+                                                        Navigator.of(context, rootNavigator: true).pushNamed(
+                                                  '/detail',
+                                                  arguments: user,
+                                                  
+                                            
+                                                  
+                                                );
                                                       },
                                                       child: Container(
                                                         width: 200,

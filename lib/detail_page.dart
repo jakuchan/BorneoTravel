@@ -11,9 +11,12 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detail Page'), // Judul AppBar.
-      ),
+      appBar:  AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: const Color.fromARGB(255, 0, 97, 187),
+              leading: BackButton( color: Colors.white,),
+              title: Text('Rincian', style: TextStyle(color: Colors.white),),
+        ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0), // Padding untuk seluruh halaman.
         child: Card(
