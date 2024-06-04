@@ -231,6 +231,10 @@ class _MyFormPageState extends State<MyFormPage> {
         .showSnackBar(const SnackBar(content: Text('User deleted')));
     _refreshUsers();
   }
+  
+
+
+
 
 
   @override
@@ -306,15 +310,31 @@ class _MyFormPageState extends State<MyFormPage> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () => _deleteUser(_users[index]['id']),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+                      onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Penghapusan data Dokter'),
+                            content: Text('Are you sure you want to delete this doctor?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  await DBHelper().deleteUser(_pasien[index]['id_pasien']);
+                                  _refreshPasien(); // Refresh the list after deletion
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Delete'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                },
+              };
