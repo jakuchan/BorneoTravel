@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:url_launcher/link.dart';
 import 'dbhelper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyFormPage extends StatefulWidget {
   const MyFormPage({Key? key}) : super(key: key);
-  
 
   @override
 
@@ -24,6 +27,7 @@ class _MyFormPageState extends State<MyFormPage> {
   final _dayController = TextEditingController();
   final _timeController = TextEditingController();
   final _priceController = TextEditingController();
+  final _mapsController = TextEditingController();
   final _descriptionController = TextEditingController();
   List<Map<String, dynamic>> _users = [];
 
@@ -51,6 +55,7 @@ class _MyFormPageState extends State<MyFormPage> {
       _dayController.text = existingUser['day'];
       _timeController.text = existingUser['time'];
       _priceController.text = existingUser['price'];
+      _mapsController.text = existingUser['maps'];
       _descriptionController.text = existingUser['description'];
     } else {
       _imageController.clear();
@@ -61,6 +66,7 @@ class _MyFormPageState extends State<MyFormPage> {
       _dayController.clear();
       _timeController.clear();
       _priceController.clear();
+      _mapsController.clear();
       _descriptionController.clear();
     }
 
@@ -78,17 +84,8 @@ class _MyFormPageState extends State<MyFormPage> {
                     children: [
                       TextFormField(
                         controller: _imageController,
-                        decoration: const InputDecoration(labelText: 'Link Gambar'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Masukkan gambar dengan benar';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: const InputDecoration(labelText: 'Nama Tempat'),
+                        decoration:
+                            const InputDecoration(labelText: 'Link Gambar'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a name';
@@ -96,9 +93,21 @@ class _MyFormPageState extends State<MyFormPage> {
                           return null;
                         },
                       ),
-                       TextFormField(
+                      TextFormField(
+                        controller: _nameController,
+                        decoration:
+                            const InputDecoration(labelText: 'Nama Tempat'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
                         controller: _typeController,
-                        decoration: const InputDecoration(labelText: 'Wisata, Hotel'),
+                        decoration:
+                            const InputDecoration(labelText: 'Wisata, Hotel'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a type';
@@ -106,30 +115,27 @@ class _MyFormPageState extends State<MyFormPage> {
                           return null;
                         },
                       ),
-                    
-                          TextFormField(
-                            controller: _cityController,
-                            decoration:
-                                const InputDecoration(labelText: 'Kota'),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a class';
-                              }
-                              return null;
-                            },
-                          ),
-                          TextFormField(
-                            controller: _provinceController,
-                            decoration:
-                                const InputDecoration(labelText: 'Provinsi'),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a valid province';
-                              }
-                              return null;
-                            },
-                          ),
-                          
+                      TextFormField(
+                        controller: _cityController,
+                        decoration: const InputDecoration(labelText: 'Kota'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a class';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _provinceController,
+                        decoration:
+                            const InputDecoration(labelText: 'Provinsi'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a valid province';
+                          }
+                          return null;
+                        },
+                      ),
                       TextFormField(
                         controller: _dayController,
                         decoration:
@@ -164,8 +170,20 @@ class _MyFormPageState extends State<MyFormPage> {
                         },
                       ),
                       TextFormField(
+                        controller: _mapsController,
+                        decoration:
+                            const InputDecoration(labelText: 'Google Maps URL'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a valid location';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
                         controller: _descriptionController,
-                        decoration: const InputDecoration(labelText: 'Deskripsi'),
+                        decoration:
+                            const InputDecoration(labelText: 'Deskripsi'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter an address';
@@ -201,9 +219,10 @@ class _MyFormPageState extends State<MyFormPage> {
       'type': _typeController.text,
       'city': _cityController.text,
       'province': _provinceController.text,
-      'day' : _dayController.text,
+      'day': _dayController.text,
       'time': _timeController.text,
       'price': _priceController.text,
+      'maps': _mapsController.text,
       'description': _descriptionController.text,
     });
     _refreshUsers();
@@ -217,9 +236,10 @@ class _MyFormPageState extends State<MyFormPage> {
       'type': _typeController.text,
       'city': _cityController.text,
       'province': _provinceController.text,
-      'day' : _dayController.text,
+      'day': _dayController.text,
       'time': _timeController.text,
       'price': _priceController.text,
+      'maps': _mapsController.text,
       'description': _descriptionController.text,
     });
     _refreshUsers();
@@ -231,15 +251,9 @@ class _MyFormPageState extends State<MyFormPage> {
         .showSnackBar(const SnackBar(content: Text('User deleted')));
     _refreshUsers();
   }
-  
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 202, 202, 202),
       appBar: AppBar(
@@ -271,8 +285,9 @@ class _MyFormPageState extends State<MyFormPage> {
           margin: const EdgeInsets.all(25),
           child: Container(
             width: 80,
-            height: 300,
-            decoration: BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+                color: Colors.blueGrey,
+                borderRadius: BorderRadius.circular(10)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -280,61 +295,117 @@ class _MyFormPageState extends State<MyFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(image: NetworkImage(_users[index]['image']))
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            width: 320,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                
+                                Container(
+                            
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                    image: NetworkImage(_users[index]['image']),
+                                    fit: BoxFit.cover,
+                                  )),
+                                ),
+                            Container(
+                                child: Row(children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () => _showForm(_users[index]['id']),
+                              ),
+                              IconButton(
+                                icon:
+                                    const Icon(Icons.delete, color: Colors.white),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Menghapus Data Wisata'),
+                                          content: Text(
+                                              'Apakah anda yakin ingin menghapus data wisata' +
+                                                  _users[index]['name'] +
+                                                  '?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                context,
+                                              ),
+                                              child: Text('Batal'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                await DBHelper().deleteUser(
+                                                    _users[index]['id']);
+                                                _refreshUsers();
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Hapus'),
+                                            )
+                                          ],
+                                        );
+                                      });
+                                },
+                              ),
+                            ])),
+                              ],
+                            ),
                           ),
-                        ),
-                        Text(_users[index]['name'],style: TextStyle(color: Colors.white),),
-                        Text(_users[index]['type'],style: TextStyle(color: Colors.white),),
-                        Text(_users[index]['city'],style: TextStyle(color: Colors.white)),
-                        Text(_users[index]['province'],style: TextStyle(color: Colors.white)),
-                        Text(_users[index]['day'],style: TextStyle(color: Colors.white)),
-                        Text(_users[index]['time'],style: TextStyle(color: Colors.white)),
-                        Text(_users[index]['price'],style: TextStyle(color: Colors.white)),
-                        Text(_users[index]['description'],style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
+                          Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Nama: ' + _users[index]['name'],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                'Tipe: ' + _users[index]['type'],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text('Kota: ' + _users[index]['city'],
+                                  style: TextStyle(color: Colors.white)),
+                              Text('Provinsi: ' + _users[index]['province'],
+                                  style: TextStyle(color: Colors.white)),
+                              Text('Hari Buka/Tutup: ' + _users[index]['day'],
+                                  style: TextStyle(color: Colors.white)),
+                              Text('Jam Buka/Tutup: ' + _users[index]['time'],
+                                  style: TextStyle(color: Colors.white)),
+                              Text('Harga Tiket: ' + _users[index]['price'],
+                                  style: TextStyle(color: Colors.white)),
+                              Link(uri: Uri.parse(_users[index]['maps']), builder: (context, followLink) {
+                                  return TextButton(style: TextButton.styleFrom(padding: EdgeInsets.zero,),onPressed:followLink ,  child: Container(width: 300, child: AutoSizeText(_users[index]['maps'], style: TextStyle(color: Colors.blue, ), minFontSize: 5, overflow: TextOverflow.ellipsis,)));
+                              }),
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child: Text('Deskripsi:',
+                                      style: TextStyle(color: Colors.white))),
+                              Container(
+                                  width: 290,
+                                  child: Text(_users[index]['description'],
+                                      style: TextStyle(color: Colors.white))),
+                            ],
+                          ))
+                        ]),
                   ),
                 ),
-                Column(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () => _showForm(_users[index]['id']),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Penghapusan data Dokter'),
-                            content: Text('Are you sure you want to delete this doctor?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  await DBHelper().deleteUser(_pasien[index]['id_pasien']);
-                                  _refreshPasien(); // Refresh the list after deletion
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Delete'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
-                },
-              };
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

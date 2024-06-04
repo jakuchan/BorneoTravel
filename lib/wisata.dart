@@ -55,7 +55,7 @@ class _HasilPageState extends State<HasilPage> {
               Container(
                 padding: EdgeInsets.only(bottom: 10),
                 width: MediaQuery.of(context).size.width,
-                height: 772,
+                height: 730,
                 
                  child: Column(
                    children: [

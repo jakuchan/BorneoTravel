@@ -57,17 +57,25 @@ class _AppGuaState extends State<AppGua> {
 
   int activeIndex = 0;
 
-  final urlImages = [
-    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
-    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
-    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
-    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
-    'https://4.bp.blogspot.com/-gNwZD0qekTg/VvT-FBcKa0I/AAAAAAAAABk/1lzBtDm-f9o2MDOwXjISRaVYn5MZRqTSQ/s1600/100_3244.jpg',
-  ];
+  List<String> urlImages = [];
 
   String login1 = 'Login';
 
   String add1 = 'Tambah Wisata';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImagesFromDatabase(); // Memanggil fungsi dengan tanda kurung
+  }
+
+  Future<void> _loadImagesFromDatabase() async {
+    DBHelper dbHelper = DBHelper(); // Inisialisasi DBHelper sebagai instance
+    final images = await dbHelper.getImages(); // Memanggil metode dari instance
+    setState(() {
+      urlImages = images.take(3).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,9 +230,9 @@ class _AppGuaState extends State<AppGua> {
                                   return Container(
                                       width: 500,
                                       height: 100,
-                                      child: buildImage(
+                                      child: Image.network(
                                         urlImage,
-                                        index,
+                                        fit: BoxFit.cover,
                                       ));
                                 },
                                 options: CarouselOptions(
@@ -285,7 +293,7 @@ class _AppGuaState extends State<AppGua> {
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: 400,
                                   height: 210,
                                   child:
                                       FutureBuilder<List<Map<String, dynamic>>>(
