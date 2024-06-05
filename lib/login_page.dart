@@ -135,6 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
+                            padding: EdgeInsets.all(4),
                             width: 40,
                             height: 40,
                             child: Image.asset('images/assets/facebooklogo.png'),
@@ -164,6 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             width: 40,
                             height: 40,
+                            child: Image.asset('images/assets/googlelogo.png'),
                           ),
                           SizedBox(width: 10,),
                           Text('Lanjutkan Dengan Google', style: TextStyle(color: Colors.black),)
