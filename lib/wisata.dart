@@ -80,12 +80,14 @@ class _HasilPageState extends State<HasilPage> {
                                     itemBuilder: (context, index) {
                                       var user = snapshot.data![index];
                                       return Container(
-                                        
+                                      
                                         child: Row(
+                                          
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
+                                            
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.of(context, rootNavigator: true).pushNamed(
@@ -97,6 +99,7 @@ class _HasilPageState extends State<HasilPage> {
                                                 );
                                               },
                                             child: Container(
+                                            
                                               margin: EdgeInsets.only(top: 20),
                                               width: 380,
                                               height: 300,

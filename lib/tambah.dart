@@ -202,6 +202,9 @@ class _MyFormPageState extends State<MyFormPage> {
                               _updateUser(id);
                             }
                             Navigator.of(context).pop();
+                            setState(() {
+                              
+                            });
                           }
                         },
                       )
