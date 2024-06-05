@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_borneoapp/login.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -36,50 +38,146 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: NetworkImage(
+                  'https://th.bing.com/th/id/OIP.0-pk81ynRyEfL-J6nwuMYAHaFJ?rs=1&pid=ImgDetMain'),
+              fit: BoxFit.cover,
+            )),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+              child: Container(
+                color: Colors.black.withOpacity(0),
               ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: _login,
-                child: Text('Login'),
-              ),
-            ],
+            ),
           ),
-        ),
+          Center(
+            child: Container(
+              padding: EdgeInsets.all(16),
+              margin: EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 300,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage('images/assets/borneotravel.png'))
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (c) => LoginForm()));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 100),
+                      width: 300,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 0, 97, 187),
+                        borderRadius: BorderRadius.circular(4)
+                      
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            width: 40,
+                            height: 40,
+                            child: Image.asset('images/assets/borneotravel2.png'),
+                          ),
+                          SizedBox(width: 10,),
+                          Text('Lanjutkan Dengan Email', style: TextStyle(color: Colors.white),)
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 110,
+                          height: 2,
+                          color: Colors.white,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: Text('Atau', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          width: 110,
+                          height: 2,
+                        )
+                      ],
+                    ),
+                  ),
+                   GestureDetector(
+                    onTap: () {
+                    },
+                    child: Container(
+                      width: 300,
+                      height: 40,
+                      
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 66, 103, 178),
+                        borderRadius: BorderRadius.circular(4)
+                      
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            width: 40,
+                            height: 40,
+                            child: Image.asset('images/assets/facebooklogo.png'),
+                          ),
+                          SizedBox(width: 10,),
+                          Text('Lanjutkan Dengan Facebook', style: TextStyle(color: Colors.white),)
+                        ],
+                      ),
+                    ),
+                  ),
+                   GestureDetector(
+                    onTap: () {
+                    
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 30),
+                      width: 300,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4)
+                      
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            width: 40,
+                            height: 40,
+                          ),
+                          SizedBox(width: 10,),
+                          Text('Lanjutkan Dengan Google', style: TextStyle(color: Colors.black),)
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
+      
     );
   }
 

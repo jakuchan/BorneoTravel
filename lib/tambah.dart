@@ -1,11 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/link.dart';
 import 'dbhelper.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MyFormPage extends StatefulWidget {
   const MyFormPage({Key? key}) : super(key: key);
@@ -75,140 +75,147 @@ class _MyFormPageState extends State<MyFormPage> {
         isScrollControlled: true,
         elevation: 0,
         builder: (_) => Padding(
-              padding: const EdgeInsets.all(20),
-              child: Container(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextFormField(
-                        controller: _imageController,
-                        decoration:
-                            const InputDecoration(labelText: 'Link Gambar'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a name';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _nameController,
-                        decoration:
-                            const InputDecoration(labelText: 'Nama Tempat'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a name';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _typeController,
-                        decoration:
-                            const InputDecoration(labelText: 'Wisata, Hotel'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a type';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _cityController,
-                        decoration: const InputDecoration(labelText: 'Kota'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a class';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _provinceController,
-                        decoration:
-                            const InputDecoration(labelText: 'Provinsi'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid province';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _dayController,
-                        decoration:
-                            const InputDecoration(labelText: 'Hari Buka/Tutup'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid day';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _timeController,
-                        decoration:
-                            const InputDecoration(labelText: 'Jam Buka/Tutup'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a class';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _priceController,
-                        decoration:
-                            const InputDecoration(labelText: 'Harga Tiket'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid phone number';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _mapsController,
-                        decoration:
-                            const InputDecoration(labelText: 'Google Maps URL'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid location';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _descriptionController,
-                        decoration:
-                            const InputDecoration(labelText: 'Deskripsi'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter an address';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        child: Text(id == null ? 'Create' : 'Update'),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (id == null) {
-                              _addUser();
-                            } else {
-                              _updateUser(id);
+              padding:  EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 20,
+                right: 20,
+                top: 20
+              ),
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          controller: _imageController,
+                          decoration:
+                              const InputDecoration(labelText: 'Link Gambar'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a name';
                             }
-                            Navigator.of(context).pop();
-                            setState(() {
-                              
-                            });
-                          }
-                        },
-                      )
-                    ],
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _nameController,
+                          decoration:
+                              const InputDecoration(labelText: 'Nama Tempat'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a name';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _typeController,
+                          decoration:
+                              const InputDecoration(labelText: 'Wisata, Hotel'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a type';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _cityController,
+                          decoration: const InputDecoration(labelText: 'Kota'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a class';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _provinceController,
+                          decoration:
+                              const InputDecoration(labelText: 'Provinsi'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid province';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _dayController,
+                          decoration:
+                              const InputDecoration(labelText: 'Hari Buka/Tutup'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid day';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _timeController,
+                          decoration:
+                              const InputDecoration(labelText: 'Jam Buka/Tutup'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a class';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _priceController,
+                          decoration:
+                              const InputDecoration(labelText: 'Harga Tiket'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid phone number';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _mapsController,
+                          decoration:
+                              const InputDecoration(labelText: 'Google Maps URL'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid location';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _descriptionController,
+                          decoration:
+                              const InputDecoration(labelText: 'Deskripsi'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter an address';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          child: Text(id == null ? 'Create' : 'Update'),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              if (id == null) {
+                                _addUser();
+                              } else {
+                                _updateUser(id);
+                              }
+                              Navigator.of(context).pop();
+                              setState(() {
+                                
+                              });
+                            }
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
